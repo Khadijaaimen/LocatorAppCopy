@@ -4,4 +4,17 @@
     <string name="longitude">Longitude:</string>
     <string name="get_location_through_gps">Get Location Through GPS</string>
     <string name="get_location_through_network">Get Location Through Network</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="login_to_your_account">Login to Your Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="appicon">AppIcon</string>
+    <string name="not_have_an_account_click_here">Not have an Account? Click Here!</string>
+    <string name="already_have_an_account_click_here">Already have an Account? Click Here!</string>
 </resources>
