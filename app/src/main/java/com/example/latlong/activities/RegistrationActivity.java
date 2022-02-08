@@ -77,7 +77,8 @@ public class RegistrationActivity extends AppCompatActivity {
                             Toast.makeText(RegistrationActivity.this, "User Added", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), UserLatLong.class));
                         } else {
-                            Toast.makeText(RegistrationActivity.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

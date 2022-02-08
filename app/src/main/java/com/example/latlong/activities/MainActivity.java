@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-//        if(firebaseAuth.getCurrentUser() != null){
-//            startActivity(new Intent(getApplicationContext(), UserLatLong.class));
-//            finish();
-//        }
+        if(firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), UserLatLong.class));
+            finish();
+        }
 
         b1 = findViewById(R.id.loginButton);
         b1.setOnClickListener(new View.OnClickListener() {
