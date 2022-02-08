@@ -1,20 +1,25 @@
-package com.example.latlong;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
+package com.example.latlong.activities;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity {
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.example.latlong.GpsTracker;
+import com.example.latlong.R;
+
+public class UserLatLong extends AppCompatActivity {
 
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude,tvLatitude2,tvLongitude2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_lat_long);
 
         tvLatitude = (TextView)findViewById(R.id.latitude);
         tvLongitude = (TextView)findViewById(R.id.longitude);
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getLocation(View view){
-        gpsTracker = new GpsTracker(MainActivity.this);
+        gpsTracker = new GpsTracker(UserLatLong.this);
         if(gpsTracker.canGetLocation()){
             double latitude = gpsTracker.getLatitudeFromNetwork();
             double longitude = gpsTracker.getLongitudeFromNetwork();
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getLocationGPS(View view){
-        gpsTracker = new GpsTracker(MainActivity.this);
+        gpsTracker = new GpsTracker(UserLatLong.this);
         if(gpsTracker.canGetLocation()){
             double latitude2 = gpsTracker.getLatitudeFromGPS();
             double longitude2 = gpsTracker.getLongitudeFromGPS();
