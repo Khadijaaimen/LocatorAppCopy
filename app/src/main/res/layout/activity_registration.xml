@@ -69,8 +69,16 @@
         android:id="@+id/alreadyCreatedAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="@string/already_have_an_account_click_here"
         android:textColor="@color/RedAccent"
         android:textSize="14sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarRegister"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
