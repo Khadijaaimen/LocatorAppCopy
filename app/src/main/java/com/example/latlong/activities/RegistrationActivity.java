@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText nName, nEmail, nPassword, nPassword2;
+    EditText nName, nEmail, nPassword;
     Button nRegisterBtn;
     TextView nClickLogin;
     FirebaseAuth firebaseAuth;
@@ -36,17 +36,11 @@ public class RegistrationActivity extends AppCompatActivity {
         nName = findViewById(R.id.editName);
         nEmail = findViewById(R.id.editEmailAddress);
         nPassword = findViewById(R.id.editPassword);
-        nPassword2 = findViewById(R.id.editRePassword);
         nRegisterBtn = findViewById(R.id.signUpBtn);
         nClickLogin = findViewById(R.id.alreadyCreatedAccount);
 
         progressBar = findViewById(R.id.progressBarRegister);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), UserLatLong.class));
-            finish();
-        }
 
         nRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -55,35 +49,22 @@ public class RegistrationActivity extends AppCompatActivity {
                 String name = nName.getText().toString().toLowerCase().trim();
                 String email = nEmail.getText().toString().trim();
                 String password = nPassword.getText().toString().trim();
-                String password2 = nPassword2.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)){
-                    nEmail.setError("* Required Field!");
-                    nEmail.setBackgroundColor(R.color.red);
+                if (TextUtils.isEmpty(name)) {
+                    nName.setError("Required Field!");
                     return;
                 }
 
-                if(TextUtils.isEmpty(name)){
-                    nName.setError("* Required Field!");
-                    nName.setBackgroundColor(R.color.red);
+                if (TextUtils.isEmpty(email)) {
+                    nEmail.setError("Required Field!");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
-                    nPassword.setError("* Required Field!");
-                    nPassword.setBackgroundColor(R.color.red);
+                if (TextUtils.isEmpty(password)) {
+                    nPassword.setError("Required Field!");
                     return;
-                } else if(password.length() < 8){
+                } else if (password.length() < 8) {
                     nPassword.setError("Password must have more than 6 characters!");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(password2)){
-                    nPassword2.setError("* Required Field!");
-                    nPassword2.setBackgroundColor(R.color.red);
-                    return;
-                } else if(password2.length() < 8){
-                    nPassword2.setError("Password must have more than 6 characters!");
                     return;
                 }
 
@@ -92,10 +73,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(RegistrationActivity.this, "User Added", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), UserLatLong.class));
-                        } else{
+                        } else {
                             Toast.makeText(RegistrationActivity.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }

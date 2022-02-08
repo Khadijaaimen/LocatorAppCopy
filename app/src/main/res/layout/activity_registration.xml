@@ -50,14 +50,6 @@
         android:hint="@string/enter_password"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/editRePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/re_enter_password"
-        android:inputType="textPassword" />
-
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="match_parent"
