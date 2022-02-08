@@ -27,35 +27,21 @@
         android:textColor="@color/black"
         android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/textEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
     <EditText
-        android:id="@+id/editEmailAddress"
+        android:id="@+id/editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:layout_marginBottom="10dp"
         android:hint="@string/enter_email"
         android:inputType="textEmailAddress" />
 
-    <TextView
-        android:id="@+id/textPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
     <EditText
-        android:id="@+id/editPassword"
+        android:id="@+id/editPasswords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:layout_marginBottom="20dp"
         android:hint="@string/enter_password"
         android:inputType="textPassword" />
 
@@ -74,4 +60,12 @@
         android:text="@string/not_have_an_account_click_here"
         android:textColor="@color/RedAccent"
         android:textSize="14sp" />
+
+    <ProgressBar
+        android:layout_marginTop="20dp"
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
