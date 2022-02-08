@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Latitude Longitude</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="get_location_through_gps">Get Location Through GPS</string>
+    <string name="get_location_through_network">Get Location Through Network</string>
+</resources>

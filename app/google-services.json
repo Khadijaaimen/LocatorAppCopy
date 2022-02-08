@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27273984511",
+    "project_id": "location-tracker-2be22",
+    "storage_bucket": "location-tracker-2be22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27273984511:android:c5d2338e0ec30cf8940fca",
+        "android_client_info": {
+          "package_name": "com.example.latlong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27273984511-ljcd4cm9ccae3e758e9fl37d57sq5me3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmju79DLcJaeaukdQiEcTDXIJPfOO3HSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27273984511-ljcd4cm9ccae3e758e9fl37d57sq5me3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
