@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.latlong.GpsTracker;
 import com.example.latlong.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserLatLong extends AppCompatActivity {
+public class LatLongActivity extends AppCompatActivity {
 
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude,tvLatitude2,tvLongitude2;
@@ -36,7 +35,7 @@ public class UserLatLong extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(UserLatLong.this, MainActivity.class));
+                startActivity(new Intent(LatLongActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -51,7 +50,7 @@ public class UserLatLong extends AppCompatActivity {
     }
 
     public void getLocation(View view){
-        gpsTracker = new GpsTracker(UserLatLong.this);
+        gpsTracker = new GpsTracker(LatLongActivity.this);
         if(gpsTracker.canGetLocation()){
             double latitude = gpsTracker.getLatitudeFromNetwork();
             double longitude = gpsTracker.getLongitudeFromNetwork();
@@ -63,7 +62,7 @@ public class UserLatLong extends AppCompatActivity {
     }
 
     public void getLocationGPS(View view){
-        gpsTracker = new GpsTracker(UserLatLong.this);
+        gpsTracker = new GpsTracker(LatLongActivity.this);
         if(gpsTracker.canGetLocation()){
             double latitude2 = gpsTracker.getLatitudeFromGPS();
             double longitude2 = gpsTracker.getLongitudeFromGPS();

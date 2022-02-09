@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.example.latlong.activities.UserLatLong">
+    tools:context="com.example.latlong.activities.LatLongActivity">
 
     <Button
         android:id="@+id/logoutButton"

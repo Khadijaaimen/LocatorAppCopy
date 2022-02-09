@@ -1,4 +1,4 @@
-package com.example.latlong;
+package com.example.latlong.activities;
 
 import android.Manifest;
 import android.app.Activity;

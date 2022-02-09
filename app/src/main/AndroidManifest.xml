@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LatLong" >
         <activity
-            android:name=".activities.UserLatLong"
+            android:name=".activities.LatLongActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
