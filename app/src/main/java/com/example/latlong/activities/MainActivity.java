@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     FirebaseAuth firebaseAuth;
     GoogleApiClient mGoogleApiClient;
     FirebaseAuth.AuthStateListener listener;
+    ProgressBar progressBar;
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.progressBarSignBtn);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.clearDefaultAccountAndReconnect();
         }
-        startActivityForResult(signInIntent, RC_SIGN_IN);    }
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+                progressBar.setVisibility(View.VISIBLE);
             } else
                 Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
             }

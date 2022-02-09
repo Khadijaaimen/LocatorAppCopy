@@ -48,7 +48,6 @@ public class LatLongActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(LatLongActivity.this, ProfileActivity.class));
                     finish();
             }

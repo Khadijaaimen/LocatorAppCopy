@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -90,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(RegistrationActivity.this, "User Added", Toast.LENGTH_SHORT).show();
-                            userId = firebaseAuth.getCurrentUser().getUid();
+                            userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userId);
                             Map<String, Object> user = new HashMap<>();
                             user.put("name", name);

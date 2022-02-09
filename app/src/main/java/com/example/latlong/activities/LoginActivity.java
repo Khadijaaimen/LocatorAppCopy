@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "User Logged In!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), LatLongActivity.class));
                         }else {
                             Toast.makeText(LoginActivity.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -122,18 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                 passwordResetDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        passwordResetDialog.
                     }
                 });
                 passwordResetDialog.create().show();
             }
         });
-    }
-
-    public static int convertPixelsToDp(float px, Context context){
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        int dp = (int) (px / (metrics.densityDpi / 160f));
-        return dp;
     }
 }
