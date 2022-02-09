@@ -8,16 +8,37 @@
     android:padding="20dp"
     tools:context="com.example.latlong.activities.LatLongActivity">
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="getLocation"
-        android:text="@string/logout"
-        android:textAllCaps="false"
-        android:layout_gravity="end"
-        android:backgroundTint="@color/RedAccent"
-        tools:ignore="UsingOnClickInXml" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="getLocation"
+            android:text="@string/profile"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/RedAccent"
+            tools:ignore="UsingOnClickInXml" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/RedAccent"
+            android:onClick="getLocation"
+            android:text="@string/logout"
+            android:layout_marginStart="180dp"
+            android:textAllCaps="false"
+            tools:ignore="UsingOnClickInXml" />
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_marginTop="30dp"

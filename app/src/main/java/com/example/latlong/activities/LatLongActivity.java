@@ -21,18 +21,8 @@ public class LatLongActivity extends AppCompatActivity {
 
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude,tvLatitude2,tvLongitude2;
-    private Button logout;
-
-    FirebaseAuth.AuthStateListener mAuthListener;
-    FirebaseAuth firebaseAuth;
+    private Button logout, profile;
     GoogleApiClient GoogleApiClient;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        firebaseAuth.addAuthStateListener(mAuthListener);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +34,7 @@ public class LatLongActivity extends AppCompatActivity {
         tvLatitude2 = (TextView)findViewById(R.id.latitude2);
         tvLongitude2 = (TextView)findViewById(R.id.longitude2);
         logout = findViewById(R.id.logoutButton);
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    Toast.makeText(LatLongActivity.this, "Welcome " + firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LatLongActivity.this, MainActivity.class));
-                }
-            }
-        };
+        profile = findViewById(R.id.profileButton);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +44,16 @@ public class LatLongActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(LatLongActivity.this, ProfileActivity.class));
+                    finish();
+            }
+        });
+
 
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {

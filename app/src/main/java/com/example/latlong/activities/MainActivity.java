@@ -1,5 +1,6 @@
 package com.example.latlong.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("27273984511-ljcd4cm9ccae3e758e9fl37d57sq5me3.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
@@ -107,8 +108,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.clearDefaultAccountAndReconnect();
+        }
+        startActivityForResult(signInIntent, RC_SIGN_IN);    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -131,8 +134,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Toast.makeText(MainActivity.this, "Welcome " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(MainActivity.this, LatLongActivity.class));
                         } else {
                             Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
@@ -141,20 +142,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 });
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult: " + result.isSuccess());
-        if(result.isSuccess()){
-            GoogleSignInAccount account = result.getSignInAccount();
-            assert account != null;
-            Toast.makeText(MainActivity.this, "Welcome " + account.getDisplayName(), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LatLongActivity.class));
-        }
-    }
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed: " + connectionResult);
     }
-
 }
