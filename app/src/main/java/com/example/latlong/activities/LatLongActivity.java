@@ -1,5 +1,6 @@
 package com.example.latlong.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.latlong.R;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LatLongActivity extends AppCompatActivity {
@@ -19,6 +22,17 @@ public class LatLongActivity extends AppCompatActivity {
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude,tvLatitude2,tvLongitude2;
     private Button logout;
+
+    FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseAuth firebaseAuth;
+    GoogleApiClient GoogleApiClient;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        firebaseAuth.addAuthStateListener(mAuthListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +44,16 @@ public class LatLongActivity extends AppCompatActivity {
         tvLatitude2 = (TextView)findViewById(R.id.latitude2);
         tvLongitude2 = (TextView)findViewById(R.id.longitude2);
         logout = findViewById(R.id.logoutButton);
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Toast.makeText(LatLongActivity.this, "Welcome " + firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LatLongActivity.this, MainActivity.class));
+                }
+            }
+        };
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
