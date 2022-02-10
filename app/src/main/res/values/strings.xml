@@ -21,4 +21,6 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="sign_in">Sign in</string>
     <string name="profile">Profile</string>
+    <string name="email_not_verified">Email Not Verified</string>
+    <string name="verify_email">Verify Email</string>
 </resources>
