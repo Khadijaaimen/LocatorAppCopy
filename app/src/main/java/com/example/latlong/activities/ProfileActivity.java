@@ -22,15 +22,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Objects;
 
-public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ProfileActivity extends AppCompatActivity  {
 
     TextView mName, mEmail;
     //    ImageView addImage;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-    String userID, personName, personEmail;
-    GoogleApiClient mGoogleApiClient;
-    String signInType = "email";
+    String userID, personName, personEmail;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,20 +68,5 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
                 }
             }
         });
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 }
