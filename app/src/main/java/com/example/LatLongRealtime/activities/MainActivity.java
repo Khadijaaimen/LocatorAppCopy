@@ -1,9 +1,11 @@
 package com.example.LatLongRealtime.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     Animation topAnim, bottomAnim;
     ImageView logoImage;
-    TextView textView;
+    TextView textView1, textView2;
+    FirebaseAuth fAuth;
     private static final int SPLASH_SCREEN = 3000;
 
     @Override
@@ -47,20 +50,35 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        fAuth = FirebaseAuth.getInstance();
+
+//        if(fAuth.getCurrentUser() != null){
+//            startActivity(new Intent(getApplicationContext(), LatLongActivity.class));
+//            finish();
+//        }
+
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         logoImage = findViewById(R.id.logo);
-        textView = findViewById(R.id.logoText);
+        textView1 = findViewById(R.id.logoText);
+        textView2 = findViewById(R.id.text);
 
         logoImage.setAnimation(topAnim);
-        textView.setAnimation(bottomAnim);
+        textView1.setAnimation(bottomAnim);
+        textView2.setAnimation(bottomAnim);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View, String>(logoImage, "logo_image");
+                pairs[1] = new Pair<View, String>(textView1, "logo_text");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
+
+                startActivity(intent, options.toBundle());
                 finish();
             }
         }, SPLASH_SCREEN);
