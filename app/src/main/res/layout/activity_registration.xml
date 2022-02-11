@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/enter_name"
+        android:hint="Full Name"
         android:inputType="text|textCapWords" />
 
     <EditText
@@ -39,15 +39,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/enter_email"
+        android:hint="Email Address"
         android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/editPhoneNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/enter_password"
+        android:hint="Password"
         android:inputType="textPassword" />
 
     <Button

@@ -1,4 +1,4 @@
-package com.example.latlong;
+package com.example.LatLongRealtime;
 
 import android.content.Context;
 

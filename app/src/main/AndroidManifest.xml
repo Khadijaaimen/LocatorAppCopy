@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.latlong">
+    package="com.example.LatLongRealtime">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LatLong">
         <activity
-            android:name=".activities.ProfileActivity"
+            android:name="com.example.LatLongRealtime.activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LatLongActivity"
+            android:name="com.example.LatLongRealtime.activities.LatLongActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.example.LatLongRealtime.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegistrationActivity"
+            android:name="com.example.LatLongRealtime.activities.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.LatLongRealtime.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

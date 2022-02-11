@@ -1,6 +1,5 @@
-package com.example.latlong.activities;
+package com.example.LatLongRealtime.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,22 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.latlong.R;
+import com.example.LatLongRealtime.R;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -38,19 +34,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     LinearLayout buttonGoogle;
     FirebaseAuth firebaseAuth;
     GoogleApiClient mGoogleApiClient;
-    FirebaseAuth.AuthStateListener listener;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        firebaseAuth.addAuthStateListener(listener);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +48,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         progressBar = findViewById(R.id.progressBarSignBtn);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        listener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(MainActivity.this, LatLongActivity.class));
-                }
-            }
-        };
-
-        if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), LatLongActivity.class));
-            finish();
-        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("27273984511-ljcd4cm9ccae3e758e9fl37d57sq5me3.apps.googleusercontent.com")
@@ -89,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(firebaseAuth.getCurrentUser() != null){
+                    startActivity(new Intent(getApplicationContext(), LatLongActivity.class));
+                    finish();
+                }
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });

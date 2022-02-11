@@ -1,4 +1,4 @@
-package com.example.latlong.activities;
+package com.example.LatLongRealtime.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.latlong.R;
+import com.example.LatLongRealtime.ModelClass.UserModelClass;
+import com.example.LatLongRealtime.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,24 +26,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText nName, nEmail, nPassword;
+    EditText nName, nEmail, nPassword, mPhone;
     Button nRegisterBtn;
     TextView nClickLogin;
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore firestore;
     ProgressBar progressBar;
     String userId;
-    DatabaseReference mRoofRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    UserModelClass userModelClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +50,17 @@ public class RegistrationActivity extends AppCompatActivity {
         nEmail = findViewById(R.id.editEmailAddress);
         nPassword = findViewById(R.id.editPassword);
         nRegisterBtn = findViewById(R.id.signUpBtn);
+        mPhone = findViewById(R.id.editPhoneNo);
         nClickLogin = findViewById(R.id.alreadyCreatedAccount);
 
         progressBar = findViewById(R.id.progressBarRegister);
         firebaseAuth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
 
         nRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
+                String phoneNo = mPhone.getText().toString().trim();
                 String name = nName.getText().toString().trim();
                 String email = nEmail.getText().toString().trim();
                 String password = nPassword.getText().toString().trim();
@@ -77,11 +75,19 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (TextUtils.isEmpty(phoneNo)) {
+                    mPhone.setError("Required Field!");
+                    return;
+                }else if (phoneNo.length() < 8) {
+                    mPhone.setError("Phone number must have more than 8 digits!");
+                    return;
+                }
+
                 if (TextUtils.isEmpty(password)) {
                     nPassword.setError("Required Field!");
                     return;
                 } else if (password.length() < 8) {
-                    nPassword.setError("Password must have more than 6 characters!");
+                    nPassword.setError("Password must have more than 8 characters!");
                     return;
                 }
 
@@ -92,37 +98,27 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            FirebaseUser fUser = firebaseAuth.getCurrentUser();
-                            fUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-//                                    Toast.makeText(RegistrationActivity.this, "Email sent!", Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                }
-                            });
+                            userModelClass = new UserModelClass();
+                            userModelClass.setName(name);
+                            userModelClass.setEmail(email);
+                            userModelClass.setPassword(password);
 
-                            Toast.makeText(RegistrationActivity.this, "User Added", Toast.LENGTH_SHORT).show();
-                            userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-                            DocumentReference documentReference = firestore.collection("users").document(userId);
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("name", name);
-                            user.put("email", email);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            database = FirebaseDatabase.getInstance("https://location-app-realtime-default-rtdb.firebaseio.com/");
+                            reference = database.getReference("users");
+                            reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d(TAG, "onSuccess: Profile is created for " + userId);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    userModelClass.setName("");
+                                    userModelClass.setEmail("");
+                                    userModelClass.setPhoneNo("");
+                                    userModelClass.setPassword("");
+
+                                    userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+                                    startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+
+                                    Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         } else {
                             Toast.makeText(RegistrationActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
@@ -131,6 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
             }
         });
+
         nClickLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

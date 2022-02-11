@@ -1,4 +1,4 @@
-package com.example.latlong.activities;
+package com.example.LatLongRealtime.activities;
 
 import android.Manifest;
 import android.app.Activity;

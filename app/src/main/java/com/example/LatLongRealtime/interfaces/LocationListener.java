@@ -1,4 +1,4 @@
-package com.example.latlong.interfaces;
+package com.example.LatLongRealtime.interfaces;
 
 import android.location.Location;
 import android.os.Bundle;
